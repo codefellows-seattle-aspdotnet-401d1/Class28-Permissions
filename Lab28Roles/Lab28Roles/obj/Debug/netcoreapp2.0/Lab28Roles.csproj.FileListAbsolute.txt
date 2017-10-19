@@ -6,3 +6,6 @@ C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\D
 C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.csproj.CoreCompileInputs.cache
 C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.AssemblyInfoInputs.cache
 C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.AssemblyInfo.cs
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\bin\Debug\netcoreapp2.0\Lab28Roles.pdb
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.dll
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.pdb
