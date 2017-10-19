@@ -29,6 +29,15 @@ namespace Lab28Tom
 
             services.AddDbContext<Lab28TomContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Lab28TomContext")));
+
+            // This context is derived from IdentityDbContext. This context is responsible for the ASPNET Identity tables in the database. 
+            services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Lab28TomContext")));
+
+            // Adding Identity dependency injection using ApplicationUser.
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
