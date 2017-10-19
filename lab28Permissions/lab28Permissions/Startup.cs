@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using lab28Permissions.Models;
 using lab28Permissions.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace lab28Permissions
 {
@@ -28,6 +29,14 @@ namespace lab28Permissions
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie("MyCookieLogin", options =>
+                    options.AccessDeniedPath = new PathString("/Account/Forbidden/"));
+
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("Admin Only", policy => policy.RequireRole("Administrator")));
 
             services.AddDbContext<lab28PermissionsContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("lab28PermissionsContext")));

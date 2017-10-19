@@ -38,7 +38,7 @@ namespace lab28Permissions.Controllers
 
                 if (result.Succeeded)
                 {
-                    var addRole = await _userManager.AddClaimAsync(user, (new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String)));
+                    //var addRole = await _userManager.AddClaimAsync(user, (new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String)));
                     if (addRole.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
@@ -70,6 +70,18 @@ namespace lab28Permissions.Controllers
 
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult AdminLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdminLogin(AdminLoginViewModel avm)
+        {
+
         }
 
         public IActionResult AccessDenied()
