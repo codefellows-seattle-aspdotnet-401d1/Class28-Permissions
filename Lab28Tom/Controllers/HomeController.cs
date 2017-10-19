@@ -20,8 +20,9 @@ namespace Lab28Tom.Controllers
 
         public IActionResult Index()
         {
-            // Calling to the LFG table in the database and getting the content for ID 1
-            var result = _context.LFG.Where(c => c.ID == 1);
+            //Getting content from all IDs in LFG table
+            var result = _context.LFG.Where(c => c.ID != 0);
+
 
             return View(result.ToList());
         }

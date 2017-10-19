@@ -14,8 +14,12 @@
 
 @foreach (var item in Model)
 {
-        <h3>@item.Gamertag</h3>
-        <h4>@item.DestinyClass</h4>
+    <h3>@item.Gamertag | @item.DestinyClass: </h3>
         <p>@item.Request</p>
 }
+
+
+<h4><a asp-controller="LFG" asp-action="Create">Post</a></h4>
+<h4><a asp-controller="Account" asp-action="Login">Login</a></h4>
+<h4><a asp-controller="Account" asp-action="Register">Register</a></h4>
 
