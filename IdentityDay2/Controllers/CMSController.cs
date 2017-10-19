@@ -15,6 +15,7 @@ namespace IdentityDay2.Controllers
     [Authorize]
     public class CMSController : Controller
     {
+        //adding userManager so I can access user properties for logic in the create controller
         private readonly UserManager<CrewMember> _userManager;
         private readonly IdentityDay2Context _context;
 

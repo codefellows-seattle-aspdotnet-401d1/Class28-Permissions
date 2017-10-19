@@ -21,8 +21,8 @@ namespace IdentityDay2.Controllers
         }
         public IActionResult Index()
         {
-            // Calling to the CMS table in the database and getting the content for ID 1
-            var result = _context.CMS.Where(c => c.ID > 0);
+            // Calling to the CMS table in the database and getting the content for all authorized anouncements
+            var result = _context.CMS.Where(c => c.IsAuthorized == true);
 
             return View(result.ToList());
         }

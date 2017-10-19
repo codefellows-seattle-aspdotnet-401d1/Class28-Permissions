@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace IdentityDay2.Controllers
 {
+    //Handles Crew login and registration as well as admin creation
     public class CrewAuthController : Controller
     {
         private readonly UserManager<CrewMember> _userManager;
@@ -20,6 +21,7 @@ namespace IdentityDay2.Controllers
             _signInManager = signInManager;
         }
 
+        //Regular user register form
         [HttpGet]
         public IActionResult Register(string returnUrl = null)
         {
@@ -27,6 +29,7 @@ namespace IdentityDay2.Controllers
             return View();
         }
 
+        //Register regular user
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel rvm, string returnUrl = null)
         {
@@ -46,6 +49,7 @@ namespace IdentityDay2.Controllers
             return View();
         }
 
+        //Admin Registration form
         [HttpGet]
         public IActionResult RegisterAdmin(string returnUrl = null)
         {
@@ -53,6 +57,7 @@ namespace IdentityDay2.Controllers
             return View();
         }
 
+        //Register Admin user
         [HttpPost]
         public async Task<IActionResult> RegisterAdmin(RegisterViewModel avm, string returnUrl = null)
         {
@@ -83,6 +88,7 @@ namespace IdentityDay2.Controllers
             return View();
         }
 
+        //Login for all users
         [HttpGet]
         public IActionResult Login()
         {
