@@ -6,3 +6,6 @@ C:\Users\shami\Source\Repos\Class28-Permissions\lab28_miya\lab28_miya\obj\Debug\
 C:\Users\shami\Source\Repos\Class28-Permissions\lab28_miya\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.csproj.CoreCompileInputs.cache
 C:\Users\shami\Source\Repos\Class28-Permissions\lab28_miya\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.AssemblyInfoInputs.cache
 C:\Users\shami\Source\Repos\Class28-Permissions\lab28_miya\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.AssemblyInfo.cs
+C:\Users\shami\source\repos\Class28-Permissions\lab28_miya\lab28_miya\bin\Debug\netcoreapp2.0\lab28_miya.pdb
+C:\Users\shami\source\repos\Class28-Permissions\lab28_miya\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.dll
+C:\Users\shami\source\repos\Class28-Permissions\lab28_miya\lab28_miya\obj\Debug\netcoreapp2.0\lab28_miya.pdb
