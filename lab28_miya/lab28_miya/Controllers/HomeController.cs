@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using lab28_miya.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,18 @@ namespace lab28_miya.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly lab28_miyaContext _context;
+        private readonly lab28_miyaContext _context;
 
-        //public HomeController(lab28_miyaContext context)
-        //{
-        //    _context = context;
-        //}
+        public HomeController(lab28_miyaContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            //var result = _context.CPS.Where(c => c.ID == 1);
-            //result.ToList()
+            var result = _context.CPS.Where(c => c.ID == 1);
 
-            return View();
+            return View(result.ToList());
         }
     }
 }

@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using lab28_miya.Models;
+using lab28_miya.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace lab28_miya
 {
@@ -31,11 +33,20 @@ namespace lab28_miya
 
             services.AddDbContext<lab28_miyaContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("lab28_miyaContext")));
+
+                services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("lab28_miyaContext")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
