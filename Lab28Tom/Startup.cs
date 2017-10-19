@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Lab28Tom.Models;
 
 namespace Lab28Tom
 {
@@ -24,6 +26,9 @@ namespace Lab28Tom
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<Lab28TomContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Lab28TomContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
