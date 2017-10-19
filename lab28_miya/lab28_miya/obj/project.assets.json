@@ -12543,11 +12543,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\shami\\Source\\Repos\\Class28-Permissions\\lab28_miya\\lab28_miya\\lab28_miya.csproj",
+      "projectUniqueName": "C:\\Users\\shami\\source\\repos\\Class28-Permissions\\lab28_miya\\lab28_miya\\lab28_miya.csproj",
       "projectName": "lab28_miya",
-      "projectPath": "C:\\Users\\shami\\Source\\Repos\\Class28-Permissions\\lab28_miya\\lab28_miya\\lab28_miya.csproj",
+      "projectPath": "C:\\Users\\shami\\source\\repos\\Class28-Permissions\\lab28_miya\\lab28_miya\\lab28_miya.csproj",
       "packagesPath": "C:\\Users\\shami\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shami\\Source\\Repos\\Class28-Permissions\\lab28_miya\\lab28_miya\\obj\\",
+      "outputPath": "C:\\Users\\shami\\source\\repos\\Class28-Permissions\\lab28_miya\\lab28_miya\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

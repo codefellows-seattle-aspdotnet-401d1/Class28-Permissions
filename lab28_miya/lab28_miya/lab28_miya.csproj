@@ -9,4 +9,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\CPS\" />
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+
 </Project>
