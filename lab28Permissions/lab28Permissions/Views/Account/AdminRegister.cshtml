@@ -1,4 +1,4 @@
-﻿@model lab28Permissions.Models.RegisterViewModel
+﻿@model lab28Permissions.Models.AdminRegisterViewModel
 <h1>Registration Page</h1>
 
 <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
@@ -20,10 +20,6 @@
     <label asp-for="ConfirmPassword"></label>
     <input asp-for="ConfirmPassword" />
     <span asp-validation-for="ConfirmPassword"></span><br />
-
-    <label asp-for="Birthday"></label>
-    <input type="date" asp-for="Birthday" />
-    <span asp-validation-for="Birthday"></span><br />
 
     <button type="submit">Register</button>
 

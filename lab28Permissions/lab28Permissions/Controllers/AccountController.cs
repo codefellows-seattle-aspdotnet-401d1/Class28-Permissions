@@ -38,13 +38,11 @@ namespace lab28Permissions.Controllers
 
                 if (result.Succeeded)
                 {
-                    //var addRole = await _userManager.AddClaimAsync(user, (new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String)));
-                    if (addRole.Succeeded)
-                    {
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
 
                         return RedirectToAction("Index", "Home");
-                    }
+                    
                 }
             }
             return View();
@@ -57,7 +55,7 @@ namespace lab28Permissions.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel lvm)
+        public async Task<IActionResult> Login(AdminLoginViewModel lvm)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +69,36 @@ namespace lab28Permissions.Controllers
             }
             return View();
         }
+        //----------------------------------------------Admin Logic----------------------------------
+        [HttpGet]
+        public IActionResult AdminRegister(/*string returnUrl = null*/)
+        {
+            //ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdminRegister(AdminRegisterViewModel rvm /*string returnUrl = null*/)
+        {
+            //ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = rvm.UserName, Email = rvm.Email };
+                var result = await _userManager.CreateAsync(user, rvm.Password);
+
+                if (result.Succeeded)
+                {
+                    //var addRole = await _userManager.AddClaimAsync(user, (new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String)));
+                    if (addRole.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            return View();
+        }
 
         [HttpGet]
         public IActionResult AdminLogin()
@@ -81,7 +109,17 @@ namespace lab28Permissions.Controllers
         [HttpPost]
         public async Task<IActionResult> AdminLogin(AdminLoginViewModel avm)
         {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(avm.UserName, avm.Password, avm.RememberMe, lockoutOnFailure: false);
 
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "AdminHome");
+                }
+
+            }
+            return View();
         }
 
         public IActionResult AccessDenied()
