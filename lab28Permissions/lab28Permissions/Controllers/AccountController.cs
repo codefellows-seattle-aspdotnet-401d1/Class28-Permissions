@@ -49,5 +49,32 @@ namespace lab28Permissions.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel lvm)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+            return View();
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View("Forbidden");
+        }
     }
 }
