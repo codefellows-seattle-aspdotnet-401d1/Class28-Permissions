@@ -7,26 +7,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IdentityDay2.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace IdentityDay2.Controllers
 {
     [Authorize]
     public class CMSController : Controller
     {
+        private readonly UserManager<CrewMember> _userManager;
         private readonly IdentityDay2Context _context;
 
-        public CMSController(IdentityDay2Context context)
+        public CMSController(UserManager<CrewMember> usermanager, IdentityDay2Context context)
         {
+            _userManager = usermanager;
             _context = context;
         }
 
         // GET: CMS
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.CMS.ToListAsync());
         }
 
         // GET: CMS/Details/5
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,16 +63,27 @@ namespace IdentityDay2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Channel,Content,IsAuthorized")] CMS cMS)
         {
+            var appUser = await _userManager.GetUserAsync(User);
+
+            if (appUser.Department != cMS.Channel)
+            {
+                cMS.IsAuthorized = false;
+            }
+            else
+            {
+                cMS.IsAuthorized = true;
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(cMS);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(HomeController.Index));
             }
             return View(cMS);
         }
 
         // GET: CMS/Edit/5
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +104,7 @@ namespace IdentityDay2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Channel,Content,IsAuthorized")] CMS cMS)
         {
             if (id != cMS.ID)
@@ -118,6 +136,7 @@ namespace IdentityDay2.Controllers
         }
 
         // GET: CMS/Delete/5
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +157,7 @@ namespace IdentityDay2.Controllers
         // POST: CMS/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var cMS = await _context.CMS.SingleOrDefaultAsync(m => m.ID == id);
