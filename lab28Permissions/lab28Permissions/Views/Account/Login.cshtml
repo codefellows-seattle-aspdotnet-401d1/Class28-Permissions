@@ -1,0 +1,21 @@
+﻿@model lab28Permissions.Models.LoginViewModel
+<h1>Login Page</h1>
+
+<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+    <div asp-validation-summary="All"></div>
+
+    <label asp-for="UserName"></label>
+    <input asp-for="UserName" />
+
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+
+    <label asp-for="RememberMe">
+        <input type="checkbox" asp-for="RememberMe" />
+        @Html.DisplayNameFor(m => m.RememberMe)
+    </label>
+
+    <button type="submit">Login</button>
+
+</form>
