@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using lab28Permissions.Models;
 using lab28Permissions.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace lab28Permissions
 {
@@ -33,6 +34,10 @@ namespace lab28Permissions
 
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("lab28PermissionsContext")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
 
         }
 
