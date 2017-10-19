@@ -35,5 +35,22 @@ namespace lab28_miya.Models
         {
             get; set;
         }
+
+        [DataType(DataType.Date)]
+        public DateTime Birthday
+        {
+            get; set;
+        }
+
+        [Required]
+        public string FirstName
+        {
+            get; set;
+        }
+        [Required]
+        public string LastName
+        {
+            get; set;
+        }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace lab28_miya.Controllers
@@ -27,21 +28,33 @@ namespace lab28_miya.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel rvm, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel rvm)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
             if(ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = rvm.Email, Email = rvm.Email };
+                var user = new ApplicationUser { UserName = rvm.Email, Email = rvm.Email, FirstName = rvm.FirstName, LastName = rvm.LastName };
 
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if(result.Succeeded)
                 {
-                    await _signInManager.PasswordSignInAsync(rvm.Email, rvm.Password, true, lockoutOnFailure: false);
+                    List<Claim> myClaims = new List<Claim>();
 
-                    return RedirectToAction("Index", "Home");
+                    Claim claim1 = new Claim(ClaimTypes.Name, rvm.FirstName + " " + rvm.LastName, ClaimValueTypes.String);
+                    myClaims.Add(claim1);
+
+                    Claim claim2 = new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String);
+                    myClaims.Add(claim2);
+
+                    var addClaims = await _userManager.AddClaimsAsync(user, myClaims);
+
+                    if (addClaims.Succeeded)
+                    {
+                        await _signInManager.PasswordSignInAsync(rvm.Email, rvm.Password, true, lockoutOnFailure: false);
+
+                        return RedirectToAction("Index", "Home");
+
+                    }                                                       
                 }
             }
             return View();
@@ -58,27 +71,18 @@ namespace lab28_miya.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: true);
 
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
             }
-            string error = "you are so wrong";
-            ModelState.AddModelError("", error);
             return View();
         }
-        private IActionResult RedirectToLocal(string returnUrl)
+        private IActionResult AccessDenied()
         {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return View("Forbidden");
         }
     }
 }
