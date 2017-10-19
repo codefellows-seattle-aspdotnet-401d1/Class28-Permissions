@@ -1,0 +1,29 @@
+﻿@model Lab28Roles.Models.LoginViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="get">
+    <button asp-controller="Home" asp-action="Index" type="submit">Home</button>
+</form>
+
+<h4>Login</h4>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Email"></label>
+    <input asp-for="Email" /><br /> <br />
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" /><br /> <br />
+
+    <label asp-for="RememberMe">
+        <input type="checkbox" asp-for="RememberMe" />
+        @Html.DisplayNameFor(m => m.RememberMe)
+    </label>
+
+    <button type="submit">Login</button>
+
+
+</form>
+

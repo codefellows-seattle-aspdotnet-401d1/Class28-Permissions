@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Lab28Roles.Models;
 using Lab28Roles.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Lab28Roles
 {
@@ -26,6 +27,14 @@ namespace Lab28Roles
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie("MyCookieLogin", options =>
+                options.AccessDeniedPath = new PathString("/Account/Forbidden/"));
+
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("Admin Only", policy => policy.RequireRole("Administrator")));
+
             services.AddMvc();
 
             services.AddDbContext<Lab28RolesContext>(options =>

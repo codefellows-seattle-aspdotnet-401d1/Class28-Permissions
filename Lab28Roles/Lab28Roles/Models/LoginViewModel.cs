@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab28Roles.Models
 {
-    public class LoginViewPage
+    public class LoginViewModel
     {
         [Required]
         [DataType(DataType.EmailAddress)]

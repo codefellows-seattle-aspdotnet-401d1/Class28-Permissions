@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab28Roles.Models
 {
-    public class RegistrationViewPage
+    public class RegisterViewModel
     {
         [Required]
         [EmailAddress]
