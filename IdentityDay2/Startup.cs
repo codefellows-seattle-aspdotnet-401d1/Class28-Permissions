@@ -16,18 +16,25 @@ namespace IdentityDay2
 {
     public class Startup
     {
+        //Configuration setup for dependancy injection
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Enable Admin-Only policy
+            services.AddAuthorization(options =>
+                    options.AddPolicy("Admin Only", policy => policy.RequireRole("Admin")));
+
             services.AddMvc();
 
+            //Regular Db context
             services.AddDbContext<IdentityDay2Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("IdentityDay2Context")));
 
@@ -35,15 +42,16 @@ namespace IdentityDay2
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("IdentityDay2Context")));
 
+            //Enable Identity Functionality using Crewmember model
             services.AddIdentity<CrewMember, IdentityRole>()
                    .AddEntityFrameworkStores<AppDbContext>()
                    .AddDefaultTokenProviders();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //Enable user profiles & authorization via the Identity API
             app.UseAuthentication();
             if (env.IsDevelopment())
             {
