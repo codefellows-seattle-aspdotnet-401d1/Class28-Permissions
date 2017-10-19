@@ -33,7 +33,7 @@ namespace lab28Permissions.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = rvm.Email, Email = rvm.Email };
+                var user = new ApplicationUser { UserName = rvm.UserName, Email = rvm.Email };
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if (result.Succeeded)
@@ -61,7 +61,7 @@ namespace lab28Permissions.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(lvm.UserName, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
