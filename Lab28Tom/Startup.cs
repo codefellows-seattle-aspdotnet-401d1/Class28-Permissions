@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Lab28Tom.Models;
+using Lab28Tom.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace Lab28Tom
 {
