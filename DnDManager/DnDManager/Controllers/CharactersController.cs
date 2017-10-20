@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DnDManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnDManager.Controllers
 {
+    [Authorize(Policy = "Admin Only")]
     public class CharactersController : Controller
     {
         private readonly DnDManagerContext _context;
@@ -19,6 +21,7 @@ namespace DnDManager.Controllers
         }
 
         // GET: Characters
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Character.ToListAsync());
