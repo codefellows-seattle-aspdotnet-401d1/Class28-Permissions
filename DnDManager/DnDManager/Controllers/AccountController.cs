@@ -47,7 +47,7 @@ namespace DnDManager.Controllers
 
                     if (addClaims.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _signInManager.PasswordSignInAsync(rvm.Email, rvm.Password, true, true);
                         return RedirectToAction("Index", "Home"); 
                     }
                 }
