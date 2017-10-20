@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab28Roles.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab28Roles.Controllers
 {
+    [Authorize(Policy = "Minimumage")]
     public class VideoGamesController : Controller
     {
         private readonly Lab28RolesContext _context;
@@ -43,6 +45,7 @@ namespace Lab28Roles.Controllers
         }
 
         // GET: VideoGames/Create
+        [Authorize(Policy = "Admin Only")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +68,7 @@ namespace Lab28Roles.Controllers
         }
 
         // GET: VideoGames/Edit/5
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +89,7 @@ namespace Lab28Roles.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Description,Rating,IsReleased")] VideoGames videoGames)
         {
             if (id != videoGames.ID)
@@ -116,6 +121,7 @@ namespace Lab28Roles.Controllers
         }
 
         // GET: VideoGames/Delete/5
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +142,7 @@ namespace Lab28Roles.Controllers
         // POST: VideoGames/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin Only")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var videoGames = await _context.VideoGames.SingleOrDefaultAsync(m => m.ID == id);

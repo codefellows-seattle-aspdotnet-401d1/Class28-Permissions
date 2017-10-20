@@ -33,7 +33,10 @@ namespace Lab28Roles
 
 
             services.AddAuthorization(options =>
-            options.AddPolicy("Admin Only", policy => policy.RequireRole("Administrator")));
+            {
+                options.AddPolicy("Admin Only", policy => policy.RequireRole("Administrator"));
+                options.AddPolicy("Minimumage", policy => policy.Requirements.Add(new MinimumAgeRequirment()));
+            });
 
             services.AddMvc();
 
