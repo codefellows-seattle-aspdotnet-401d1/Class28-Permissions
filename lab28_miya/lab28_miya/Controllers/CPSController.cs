@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using lab28_miya.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lab28_miya.Controllers
 {
+    [Authorize(Policy = "Admin Only")]
     public class CPSController : Controller
     {
         private readonly lab28_miyaContext _context;
@@ -19,6 +21,7 @@ namespace lab28_miya.Controllers
         }
 
         // GET: CPS
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.CPS.ToListAsync());
@@ -85,6 +88,7 @@ namespace lab28_miya.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,YearsInService,Region,HasCompassion,Zodiac")] CPS cPS)
         {
             if (id != cPS.ID)
@@ -116,6 +120,7 @@ namespace lab28_miya.Controllers
         }
 
         // GET: CPS/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

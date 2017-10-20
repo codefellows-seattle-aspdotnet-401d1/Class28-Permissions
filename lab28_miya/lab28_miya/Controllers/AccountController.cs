@@ -1,4 +1,5 @@
 ﻿using lab28_miya.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace lab28_miya.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -22,6 +24,7 @@ namespace lab28_miya.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -61,6 +64,7 @@ namespace lab28_miya.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult LogIn()
         {
             return View();
@@ -83,6 +87,11 @@ namespace lab28_miya.Controllers
         private IActionResult AccessDenied()
         {
             return View("Forbidden");
+        }
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+            return View();
         }
     }
 }

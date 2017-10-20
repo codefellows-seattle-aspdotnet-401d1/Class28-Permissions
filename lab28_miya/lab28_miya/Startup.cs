@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using lab28_miya.Models;
 using lab28_miya.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace lab28_miya
 {
@@ -29,6 +30,13 @@ namespace lab28_miya
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie("MyCookieLogin", options =>
+                options.AccessDeniedPath = new PathString("/Account/Forbidden/"));
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("Admin Only", policy => policy.RequireRole("Administrator")));
+
             services.AddMvc();
 
             services.AddDbContext<lab28_miyaContext>(options =>
@@ -54,11 +62,6 @@ namespace lab28_miya
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
         }
     }
 }
