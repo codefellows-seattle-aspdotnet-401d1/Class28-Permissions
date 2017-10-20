@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using DnDManager.Models;
+using System.Security.Claims;
 
 namespace DnDManager.Controllers
 {
@@ -37,8 +38,18 @@ namespace DnDManager.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    List<Claim> myClaims = new List<Claim>();
+
+                    Claim admin = new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String);
+                    myClaims.Add(admin);
+
+                    var addClaims = await _userManager.AddClaimsAsync(user, myClaims);
+
+                    if (addClaims.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Index", "Home"); 
+                    }
                 }
             }
 
@@ -61,8 +72,7 @@ namespace DnDManager.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            string error = "Your password is incorrect.";
-            ModelState.AddModelError("", error);
+
             return View();
         }
 
