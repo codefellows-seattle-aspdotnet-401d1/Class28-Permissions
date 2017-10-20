@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/StyleSheet.css">
+</head>
+<body>
+    <header>
+        Welcome&nbsp;
+
+        @if (User.Identities.Any(a => a.IsAuthenticated))
+        {
+            User.Identities.First(a => a.IsAuthenticated).Name.ToString();
+
+        }
+        else
+        {
+            <span>Stranger</span>
+
+        }
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

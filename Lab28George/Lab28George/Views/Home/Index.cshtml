@@ -1,0 +1,24 @@
+﻿@model List<Lab28George.Models.Player>
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Welcome to the Player Creation site for Popular MMO Game.</h2><br />
+<p>Here you can create a character and edit the Title and Height of your character.</p><br />
+<p>Please excuse the mess as the site is still under construction.</p><br />
+
+<a asp-action="Register" asp-controller="Account">Register here.</a><br />
+
+<a asp-action="Login" asp-controller="Account">Login here.</a><br />
+
+<a asp-action="index" asp-controller="Player">Edit Character here.</a><br />
+
+<!-- I would probably make these boxes to make this look neater -->
+@foreach (var item in Model)
+{
+    <br />
+    <h3>@item.Title</h3>
+    <p>@item.Height</p>
+    <p>@item.Health</p>
+    <br />
+}
