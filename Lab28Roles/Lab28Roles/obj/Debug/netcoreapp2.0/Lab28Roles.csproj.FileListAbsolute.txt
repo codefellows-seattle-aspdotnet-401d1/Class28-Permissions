@@ -1,0 +1,11 @@
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\bin\Debug\netcoreapp2.0\Lab28Roles.deps.json
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\bin\Debug\netcoreapp2.0\Lab28Roles.runtimeconfig.json
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\bin\Debug\netcoreapp2.0\Lab28Roles.runtimeconfig.dev.json
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\bin\Debug\netcoreapp2.0\Lab28Roles.dll
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.csprojResolveAssemblyReference.cache
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.csproj.CoreCompileInputs.cache
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.AssemblyInfoInputs.cache
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.AssemblyInfo.cs
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\bin\Debug\netcoreapp2.0\Lab28Roles.pdb
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.dll
+C:\Users\Duane Rush\source\repos\Class28-Permissions\Lab28Roles\Lab28Roles\obj\Debug\netcoreapp2.0\Lab28Roles.pdb
