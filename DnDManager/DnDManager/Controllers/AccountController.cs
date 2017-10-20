@@ -33,7 +33,7 @@ namespace DnDManager.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = rvm.Email, Email = rvm.Email };
+                var user = new ApplicationUser { UserName = rvm.Email, Email = rvm.Email, Birthday = rvm.Birthday };
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if (result.Succeeded)
