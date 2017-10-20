@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab28Tom.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab28Tom.Controllers
 {
+    [Authorize(Policy = "Admin Only")]
     public class LFGController : Controller
     {
         private readonly Lab28TomContext _context;
@@ -43,6 +45,7 @@ namespace Lab28Tom.Controllers
         }
 
         // GET: LFG/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();

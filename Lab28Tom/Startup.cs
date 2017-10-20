@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Lab28Tom.Models;
 using Lab28Tom.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Lab28Tom
 {
@@ -27,6 +28,13 @@ namespace Lab28Tom
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie("MyCookieLogin", options =>
+                options.AccessDeniedPath = new PathString("/Account/Forbidden/"));
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("Admin only", policy => policy.RequireRole("Administrator")));
+
             services.AddMvc();
 
             services.AddDbContext<Lab28TomContext>(options =>

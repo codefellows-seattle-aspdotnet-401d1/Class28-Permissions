@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Lab28Tom.Controllers
@@ -46,6 +47,45 @@ namespace Lab28Tom.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult AdminRegister(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdminRegister(RegisterViewModel arvm)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = arvm.Email, Email = arvm.Email };
+                var result = await _userManager.CreateAsync(user, arvm.Password);
+
+                if (result.Succeeded)
+                {
+                    List<Claim> myClaims = new List<Claim>();
+
+                    Claim claim1 = new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String);
+                    myClaims.Add(claim1);
+
+                    var addClaims = await _userManager.AddClaimsAsync(user, myClaims);
+
+                    if(addClaims.Succeeded)
+                    {
+                        await _signInManager.PasswordSignInAsync(arvm.Email, arvm.Password, true, lockoutOnFailure: false);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            return View();
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View("Forbidden");
+        }
 
         [HttpGet]
         public IActionResult Login()
