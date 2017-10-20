@@ -102,6 +102,12 @@ namespace DnDManager.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+            return View();
+        }
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
