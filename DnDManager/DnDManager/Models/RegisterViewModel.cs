@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DnDManager.Models
 {
@@ -20,5 +21,10 @@ namespace DnDManager.Models
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "The passwords do not match!")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Birthday { get; set; }
+
     }
 }
