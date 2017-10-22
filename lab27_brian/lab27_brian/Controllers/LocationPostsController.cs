@@ -85,6 +85,7 @@ namespace lab27_brian.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Super User")]
         public async Task<IActionResult> Edit(int id, [Bind("LocationID,Review,Image,Contact,Location")] LocationPost locationPost)
         {
             if (id != locationPost.LocationID)
@@ -116,6 +117,7 @@ namespace lab27_brian.Controllers
         }
 
         // GET: LocationPosts/Delete/5
+        [Authorize(Policy = "Super User")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +138,7 @@ namespace lab27_brian.Controllers
         // POST: LocationPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Super User")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var locationPost = await _context.LocationPost.SingleOrDefaultAsync(m => m.LocationID == id);

@@ -3,9 +3,11 @@ using lab27_brian.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lab27_brian.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -66,14 +68,17 @@ namespace lab27_brian.Controllers
             }
             return View();
         }
-
+        
         [HttpGet]
+        // You will need to comment out this Authorize to create the fist Super User, Then only Super Users can register new Admins
+        [Authorize(Policy = "Super User")]
         public IActionResult AdminReg()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = "Super User")]
         public async Task<IActionResult> AdminReg(RegistrationViewModel rvm)
         {
             if (ModelState.IsValid)
