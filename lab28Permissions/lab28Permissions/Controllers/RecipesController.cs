@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace lab28Permissions.Controllers
 {
+
     [Authorize(Policy = "Admin Only")]
 
     public class RecipesController : Controller
