@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using lab28Permissions.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lab28Permissions.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -19,18 +21,18 @@ namespace lab28Permissions.Controllers
             _userManager = usermanager;
             _signInManager = signInManager;
         }
-
+        [AllowAnonymous]
         [HttpGet]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register(/*string returnUrl = null*/)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel rvm, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel rvm /*string returnUrl = null*/)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = rvm.UserName, Email = rvm.Email };
@@ -38,13 +40,11 @@ namespace lab28Permissions.Controllers
 
                 if (result.Succeeded)
                 {
-                    var addRole = await _userManager.AddClaimAsync(user, (new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String)));
-                    if (addRole.Succeeded)
-                    {
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
 
                         return RedirectToAction("Index", "Home");
-                    }
+                    
                 }
             }
             return View();
@@ -68,6 +68,37 @@ namespace lab28Permissions.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+            }
+            return View();
+        }
+        //----------------------------------------------Admin Logic----------------------------------
+        [Authorize]
+        [HttpGet]
+        public IActionResult AdminRegister(/*string returnUrl = null*/)
+        {
+            //ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdminRegister(AdminRegisterViewModel rvm /*string returnUrl = null*/)
+        {
+            //ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = rvm.UserName, Email = rvm.Email };
+                var result = await _userManager.CreateAsync(user, rvm.Password);
+
+                if (result.Succeeded)
+                {
+                    var addRole = await _userManager.AddClaimAsync(user, (new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String)));
+                    if (addRole.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        return RedirectToAction("AdminHome", "Home");
+                    }
+                }
             }
             return View();
         }

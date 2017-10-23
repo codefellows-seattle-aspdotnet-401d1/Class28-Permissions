@@ -5,16 +5,16 @@
     <div asp-validation-summary="All"></div>
 
     <label asp-for="UserName"></label>
-    <input asp-for="UserName" />
+    <input asp-for="UserName" /><br />
 
 
     <label asp-for="Password"></label>
-    <input asp-for="Password" />
+    <input asp-for="Password" /><br />
 
     <label asp-for="RememberMe">
         <input type="checkbox" asp-for="RememberMe" />
         @Html.DisplayNameFor(m => m.RememberMe)
-    </label>
+    </label><br />
 
     <button type="submit">Login</button>
 

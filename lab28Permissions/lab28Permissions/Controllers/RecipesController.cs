@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using lab28Permissions.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lab28Permissions.Controllers
 {
+
+    [Authorize(Policy = "Admin Only")]
+
     public class RecipesController : Controller
     {
         private readonly lab28PermissionsContext _context;
@@ -19,6 +23,7 @@ namespace lab28Permissions.Controllers
         }
 
         // GET: Recipes
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Recipe.ToListAsync());
